@@ -1,0 +1,39 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "author": "typicode",
+      "title": "test",
+      "id": 2
+    },
+    {
+      "author": "typicode",
+      "title": "test 2",
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "postId": 2,
+      "body": "test comment",
+      "id": 2
+    },
+    {
+      "postId": 3,
+      "body": "new comment",
+      "id": 3
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

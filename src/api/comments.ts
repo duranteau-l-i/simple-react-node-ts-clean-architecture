@@ -6,8 +6,8 @@ export interface IComment {
 
 const URL = `${process.env.REACT_APP_API_BASE_URL}/comments`
 
-export const getComments = (postId: number) => axios.get(`${URL}?id=${postId}&author.name=typicode`)
+export const getComments = (postId: number) => axios.get<IComment[]>(`${URL}?id=${postId}&author.name=typicode`)
 
-export const getComment = (id: string) => axios.get(`${URL}/${id}?author.name=typicode`)
+export const getComment = (id: string) => axios.get<IComment>(`${URL}/${id}?author.name=typicode`)
 
 export const createComment = (data: Object) => axios.post(URL, data)

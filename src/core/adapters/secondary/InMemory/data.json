@@ -2,17 +2,17 @@
   "posts": [
     {
       "id": 1,
-      "title": "json-server",
+      "title": "data json-server",
       "author": "typicode"
     },
     {
       "author": "typicode",
-      "title": "test",
+      "title": "data test",
       "id": 2
     },
     {
       "author": "typicode",
-      "title": "test 2",
+      "title": "data test 2",
       "id": 3
     }
   ],

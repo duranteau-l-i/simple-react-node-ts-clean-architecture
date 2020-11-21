@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import postApi from "../../core/adapters/secondary/REST/Posts";
-import postMemory from "../../core/adapters/secondary/InMemory/Posts";
-import PostsDI from "../../core/adapters/secondary/PostDI";
-import IPost from "../../core/domain/entities/Posts";
+import postsDI from "../../core/configuration/PostDI";
+import Post from "../../core/domain/entities/Post";
 
 import AddPost from "./AddPost";
 import Comments from "../Comments";
@@ -10,10 +8,11 @@ import Comments from "../Comments";
 import "./post.css";
 
 const Posts = () => {
-  const [posts, setPosts] = useState<IPost[] | null>(null);
+  const [posts, setPosts] = useState<Post[] | null>(null);
 
   const getData = useCallback(() => {
-    PostsDI.getPosts()
+    postsDI
+      .getPosts()
       .then(res => {
         setPosts(res.data);
       })

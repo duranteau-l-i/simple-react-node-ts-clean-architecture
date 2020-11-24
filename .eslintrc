@@ -1,26 +1,28 @@
 {
   "extends": [
-    "eslint:recommended"
-    // "plugin:react/recommended",
-    // "plugin:@typescript-eslint/recommended",
-    // "prettier/@typescript-eslint",
-    // "plugin:prettier/recommended"
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
   ],
   "plugins": ["react", "@typescript-eslint", "prettier"],
-  // "env": {
-  //   "browser": true,
-  //   "jasmine": true,
-  //   "jest": true
-  // },
+  "env": {
+    "browser": true,
+    "jasmine": true,
+    "jest": true
+  },
   "rules": {
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["warn"]
-  }
-  // "settings": {
-  //   "react": {
-  //     "pragma": "React",
-  //     "version": "detect"
-  //   }
-  // },
-  // "parser": "@typescript-eslint/parser"
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "prettier/prettier": ["warn", { "singleQuote": false }],
+    "comma-dangle": ["error", "never"]
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser"
 }

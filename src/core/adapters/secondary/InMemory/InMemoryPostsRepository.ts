@@ -1,26 +1,23 @@
-import Post  from '../../../domain/entities/Post'
-import PostRepository from '../../../domain/ports/repositories/PostsRepository'
-import mockData from './data.json'
+import Post from "../../../domain/entities/Post";
+import PostRepository from "../../../domain/ports/repositories/PostsRepository";
+import mockData from "./data.json";
 
 class InMemoryPostsRepository implements PostRepository {
-
- posts: Object = {data: []}
-
-  constructor() {}
+  private posts = mockData.posts;
 
   fetchPosts(): Promise<any> {
-    return Promise.resolve(this.posts)
-  }
+    return new Promise((resolve, reject) => {
+      const dataSuccess = {
+        status: "success",
+        message: "",
+        data: this.posts
+      };
+      resolve(dataSuccess);
 
-  fetchPostById(id: number): Promise<any> {
-    // return Promise.resolve(this.posts.data.find(post => post.id === id))
-    return Promise.resolve("")
-  }
-
-  setPosts(data: Post[]): void {
-    this.posts = Promise.resolve({"data":data})
+      // const dataFailed = { status: "failed", message: "e.message", data: [] };
+      // reject(dataFailed);
+    });
   }
 }
 
-// const postMemory = new InMemoryPostsRepository()
-export default InMemoryPostsRepository
+export default InMemoryPostsRepository;

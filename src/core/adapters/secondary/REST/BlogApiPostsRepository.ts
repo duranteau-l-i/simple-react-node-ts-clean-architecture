@@ -1,21 +1,28 @@
-import axios, {AxiosResponse} from 'axios'
-import Post from '../../../domain/entities/Post'
-import PostsRepository from '../../../domain/ports/repositories/PostsRepository'
+import axios, { AxiosResponse } from "axios";
+import Post from "../../../domain/entities/Post";
+import PostsRepository from "../../../domain/ports/repositories/PostsRepository";
 
-const URL = `${process.env.REACT_APP_API_BASE_URL}/posts`
+const URL = `${process.env.REACT_APP_API_BASE_URL}/posts`;
 
 class BlogApiPostsRepository implements PostsRepository {
-
-  constructor() {}
-
-  fetchPosts(): Promise<AxiosResponse<Post[]>> {
-    return axios.get<Post[]>(URL)
-  }
-
-  fetchPostById(id: number): Promise<AxiosResponse<Post>> {
-    return axios.get<Post>(`${URL}/${id}`)
+  fetchPosts(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      axios
+        .get<AxiosResponse<Post[]>>(URL)
+        .then(res => {
+          const dataSuccess = {
+            status: "success",
+            message: "",
+            data: res.data
+          };
+          resolve(dataSuccess);
+        })
+        .catch(e => {
+          const dataFailed = { status: "failed", message: e.message, data: [] };
+          reject(dataFailed);
+        });
+    });
   }
 }
 
-// const postApi = new PostsApi()
-export default BlogApiPostsRepository
+export default BlogApiPostsRepository;

@@ -1,28 +1,22 @@
-import PostsApi from '../adapters/secondary/REST/BlogApiPostsRepository'
-import PostsMemory from '../adapters/secondary/InMemory/InMemoryPostsRepository'
+import PostsApi from "../adapters/secondary/REST/BlogApiPostsRepository";
+import PostsMemory from "../adapters/secondary/InMemory/InMemoryPostsRepository";
+import PostsLoader from "../useCases/PostsLoader";
 
-import {PostsLoader} from '../useCases/PostsLoader'
-import {PostLoader} from '../useCases/PostLoader'
+import PostsRepository from "../domain/ports/repositories/PostsRepository";
+import Post from "../domain/entities/Post";
 
-const postsApi = new PostsApi()
-const postsMemory = new PostsMemory()
+import ApiResponse from "../domain/DTO/ApiResponse";
 
-// const postsDI = {
-//   postsLoader: new PostsLoader(postsApi),
-//   postLoader: new PostLoader(postsApi)
-// }
+const postsApi = new PostsApi();
+const postsMemory = new PostsMemory();
 
 class PostDI {
-  source
+  constructor(private source: PostsRepository) {}
 
-  constructor( source: any) {
-    this.source = source
-  }
-
-  getPosts() {
-    return new PostsLoader(this.source).loadPosts()
+  getPosts(): Promise<ApiResponse<Post[]>> {
+    return new PostsLoader(this.source).loadPosts();
   }
 }
 
-const postsDI = new PostDI(postsApi)
-export default postsDI
+const postsDI = new PostDI(postsApi);
+export default postsDI;

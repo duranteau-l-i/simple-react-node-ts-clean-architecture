@@ -1,14 +1,13 @@
-import PostsRepository from '../domain/ports/repositories/PostsRepository'
+import PostsRepository from "../domain/ports/repositories/PostsRepository";
+import Post from "../domain/entities/Post";
+import ApiResponse from "../domain/DTO/ApiResponse";
 
-export class PostsLoader {
-   postRepository;
+class PostsLoader {
+  constructor(private postRepository: PostsRepository) {}
 
-  constructor(postRepository: PostsRepository) {
-    this.postRepository = postRepository
+  loadPosts(): Promise<ApiResponse<Post[]>> {
+    return this.postRepository.fetchPosts();
   }
-
-  loadPosts() {
-      return this.postRepository.fetchPosts()
-  }
-
 }
+
+export default PostsLoader;

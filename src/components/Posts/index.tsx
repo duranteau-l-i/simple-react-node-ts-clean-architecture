@@ -16,7 +16,10 @@ const Posts = () => {
       .then(res => {
         setPosts(res.data);
       })
-      .catch(e => setPosts([]));
+      .catch(e => {
+        console.log(e);
+        setPosts([]);
+      });
   }, [posts]);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const Posts = () => {
       {posts && (
         <div>
           {posts.map(post => (
-            <div className="post">
+            <div className="post" key={post.id}>
               <p key={post.id}>Title: {post.title}</p>
               <ul>
                 <Comments postId={post.id} />

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-import { createPost } from "../../api/posts";
+import postsDI from "../../core/configuration/PostDI";
 
 interface IProps {
   handlePosts: () => void;
@@ -14,9 +13,15 @@ const AddPost = ({ handlePosts }: IProps) => {
   };
 
   const handleClick = () => {
-    createPost({ title: value });
-    setValue("");
-    handlePosts();
+    postsDI
+      .createPost({ title: value })
+      .then(res => {
+        setValue("");
+        handlePosts();
+      })
+      .catch(e => {
+        console.log(e);
+      });
   };
 
   return (

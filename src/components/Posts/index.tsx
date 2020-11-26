@@ -14,11 +14,11 @@ const Posts = () => {
     postsDI
       .getPosts()
       .then(res => {
+        console.log(res.data);
         setPosts(res.data);
       })
       .catch(e => {
         console.log(e);
-        setPosts([]);
       });
   }, [posts]);
 
@@ -37,7 +37,7 @@ const Posts = () => {
       <AddPost handlePosts={handlePosts} />
       {posts && (
         <div>
-          {posts.map(post => (
+          {posts.map((post: Post) => (
             <div className="post" key={post.id}>
               <p key={post.id}>Title: {post.title}</p>
               <ul>

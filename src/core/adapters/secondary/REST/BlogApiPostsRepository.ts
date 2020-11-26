@@ -23,6 +23,44 @@ class BlogApiPostsRepository implements PostsRepository {
         });
     });
   }
+
+  fetchPostById(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      axios
+        .get<AxiosResponse<Post>>(`${URL}/${id}`)
+        .then(res => {
+          const dataSuccess = {
+            status: "success",
+            message: "",
+            data: res.data
+          };
+          resolve(dataSuccess);
+        })
+        .catch(e => {
+          const dataFailed = { status: "failed", message: e.message, data: [] };
+          reject(dataFailed);
+        });
+    });
+  }
+
+  createPost(data: Post): Promise<any> {
+    return new Promise((resolve, reject) => {
+      axios
+        .post<AxiosResponse<Post>>(`${URL}`, data)
+        .then(res => {
+          const dataSuccess = {
+            status: "success",
+            message: "",
+            data: res.data
+          };
+          resolve(dataSuccess);
+        })
+        .catch(e => {
+          const dataFailed = { status: "failed", message: e.message, data: [] };
+          reject(dataFailed);
+        });
+    });
+  }
 }
 
 export default BlogApiPostsRepository;

@@ -14,7 +14,7 @@ const AddPost = ({ handlePosts }: IProps) => {
 
   const handleClick = () => {
     postsDI
-      .createPost({ title: value })
+      .createPost({ title: value, author: "typicode" })
       .then(res => {
         setValue("");
         handlePosts();

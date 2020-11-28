@@ -14,7 +14,8 @@ const Posts = () => {
     postsDI
       .getPosts()
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
+        setPosts([]);
         setPosts(res.data);
       })
       .catch(e => {

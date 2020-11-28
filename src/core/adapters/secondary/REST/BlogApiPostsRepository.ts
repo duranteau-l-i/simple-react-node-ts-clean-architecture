@@ -1,64 +1,49 @@
 import axios, { AxiosResponse } from "axios";
-import Post from "../../../domain/entities/Post";
 import PostsRepository from "../../../domain/ports/repositories/PostsRepository";
+import PostDTO from "../../../DTO/PostDTO";
+import { ICreatePost } from "../../../useCases/PostCreater";
 
 const URL = `${process.env.REACT_APP_API_BASE_URL}/posts`;
 
 class BlogApiPostsRepository implements PostsRepository {
-  fetchPosts(): Promise<any> {
+  fetchPosts(): Promise<PostDTO[]> {
     return new Promise((resolve, reject) => {
       axios
-        .get<AxiosResponse<Post[]>>(URL)
+        .get(URL)
         .then(res => {
-          const dataSuccess = {
-            status: "success",
-            message: "",
-            data: res.data
-          };
-          resolve(dataSuccess);
+          const list = res.data.map((post: any) => {
+            return new PostDTO(post.id, post.title, post.author);
+          });
+          resolve(list);
         })
         .catch(e => {
-          const dataFailed = { status: "failed", message: e.message, data: [] };
-          reject(dataFailed);
+          reject([]);
         });
     });
   }
 
-  fetchPostById(id: number): Promise<any> {
+  fetchPostById(id: number): Promise<PostDTO> {
     return new Promise((resolve, reject) => {
       axios
-        .get<AxiosResponse<Post>>(`${URL}/${id}`)
+        .get(`${URL}/${id}`)
         .then(res => {
-          const dataSuccess = {
-            status: "success",
-            message: "",
-            data: res.data
-          };
-          resolve(dataSuccess);
+          resolve(new PostDTO(res.data.id, res.data.title, res.data.author));
         })
         .catch(e => {
-          const dataFailed = { status: "failed", message: e.message, data: [] };
-          reject(dataFailed);
+          reject({});
         });
     });
   }
 
-  createPost(data: Post): Promise<any> {
+  createPost(data: ICreatePost): Promise<void> {
     return new Promise((resolve, reject) => {
-      axios
-        .post<AxiosResponse<Post>>(`${URL}`, data)
-        .then(res => {
-          const dataSuccess = {
-            status: "success",
-            message: "",
-            data: res.data
-          };
-          resolve(dataSuccess);
-        })
-        .catch(e => {
-          const dataFailed = { status: "failed", message: e.message, data: [] };
-          reject(dataFailed);
-        });
+      axios.post(`${URL}`, data);
+      // .then(res => {
+      //   resolve("ok");
+      // })
+      // .catch(e => {
+      //   reject(e);
+      // });
     });
   }
 }

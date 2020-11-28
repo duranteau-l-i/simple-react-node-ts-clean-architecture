@@ -1,52 +1,32 @@
 import Post from "../../../core/domain/entities/Post";
 import PostRepository from "../../../core/domain/ports/repositories/PostsRepository";
-import ApiResponse from "../../../core/domain/DTO/ApiResponse";
-
-interface IInMemoryPosts {
-  data: Post[];
-}
+import ApiResponse from "../../../core/useCases/PostLoaderResponse";
+import PostDTO from "../../../core/DTO/PostDTO";
 
 class InMemoryPostsRepository implements PostRepository {
-  private posts: Post[] = [];
+  private posts: PostDTO[] = [];
 
-  setPosts(data: Post[]): void {
+  setPosts(data: PostDTO[]): void {
     this.posts = data;
   }
 
-  fetchPosts(): Promise<ApiResponse<Post[]>> {
-    return Promise.resolve({
-      status: "success",
-      message: "",
-      data: this.posts
-    });
+  fetchPosts(): Promise<PostDTO[]> {
+    return Promise.resolve(this.posts);
   }
 
-  fetchPostById(id: number): Promise<ApiResponse<Post>> {
+  fetchPostById(id: number): Promise<PostDTO> {
     const post = this.posts.find((post: any) => post.id === id);
 
     if (post) {
-      return Promise.resolve({
-        status: "success",
-        message: "",
-        data: post
-      });
+      return Promise.resolve(post);
     }
 
-    return Promise.reject({
-      status: "failed",
-      message: "don't exist",
-      data: {}
-    });
+    return Promise.reject({});
   }
 
-  createPost(data: Post): Promise<ApiResponse<Post>> {
-    this.posts.push(data);
-
-    return Promise.resolve({
-      status: "success",
-      message: "",
-      data: data
-    });
+  createPost(data: Post): Promise<any> {
+    this.posts.push(new PostDTO(data.id, data.title, data.author));
+    return Promise.resolve("ok");
   }
 }
 

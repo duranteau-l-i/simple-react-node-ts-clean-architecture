@@ -1,12 +1,13 @@
 import Post from "../../entities/Post";
-import ApiResponse from "../../DTO/ApiResponse";
+import PostLoaderResponse from "../../../useCases/PostLoaderResponse";
+import PostDTO from "../../../DTO/PostDTO";
 
 interface PostsRepository {
-  fetchPosts(): Promise<ApiResponse<Post[]>>;
+  fetchPosts(): Promise<PostDTO[]>;
 
-  fetchPostById(id: number): Promise<ApiResponse<Post>>;
+  fetchPostById(id: number): Promise<PostDTO>;
 
-  createPost(data: Post): Promise<ApiResponse<Post>>;
+  createPost(data: object): Promise<void>;
 }
 
 export default PostsRepository;

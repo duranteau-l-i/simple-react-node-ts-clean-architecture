@@ -1,12 +1,12 @@
 import PostsApi from "../adapters/secondary/REST/BlogApiPostsRepository";
 import PostsMemory from "../adapters/secondary/InMemory/InMemoryPostsRepository";
 import PostsLoader from "../useCases/PostsLoader";
-import PostCreater from "../useCases/PostCreater";
+import PostCreater, { ICreatePost } from "../useCases/PostCreater";
 
 import PostsRepository from "../domain/ports/repositories/PostsRepository";
 import Post from "../domain/entities/Post";
 
-import ApiResponse from "../domain/DTO/ApiResponse";
+import PostLoaderResponse from "../useCases/PostLoaderResponse";
 
 const postsApi = new PostsApi();
 const postsMemory = new PostsMemory();
@@ -14,11 +14,11 @@ const postsMemory = new PostsMemory();
 class PostDI {
   constructor(private source: PostsRepository) {}
 
-  getPosts(): Promise<ApiResponse<Post[]>> {
+  getPosts(): Promise<PostLoaderResponse<Post[]>> {
     return new PostsLoader(this.source).loadPosts();
   }
 
-  createPost(data: any): Promise<ApiResponse<Post>> {
+  createPost(data: ICreatePost): Promise<any> {
     return new PostCreater(this.source).createPost(data);
   }
 }

@@ -1,5 +1,5 @@
-import PostsRepository from "../domain/ports/repositories/PostsRepository";
-import Post from "../domain/entities/Post";
+import PostsRepository from "../../domain/posts/ports/repositories/PostsRepository";
+import Post from "../../domain/posts/entities/Post";
 import PostLoaderResponse from "./PostLoaderResponse";
 import PostBuilder from "./PostBuilder";
 

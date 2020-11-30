@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import postsDI from "../../core/configuration/PostDI";
-import Post from "../../core/domain/entities/Post";
+import Post from "../../core/domain/posts/entities/Post";
 
 import AddPost from "./AddPost";
 import Comments from "../Comments";

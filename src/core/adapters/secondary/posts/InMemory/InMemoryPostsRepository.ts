@@ -1,5 +1,5 @@
-import Post from "../../../domain/entities/Post";
-import PostRepository from "../../../domain/ports/repositories/PostsRepository";
+import Post from "../../../../domain/posts/entities/Post";
+import PostRepository from "../../../../domain/posts/ports/repositories/PostsRepository";
 import mockData from "./data.json";
 
 class InMemoryPostsRepository implements PostRepository {

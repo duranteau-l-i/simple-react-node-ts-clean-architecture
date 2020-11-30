@@ -1,5 +1,5 @@
 import axios from "axios";
-import Post from "../core/domain/entities/Post";
+import Post from "../core/domain/posts/entities/Post";
 
 const URL = `${process.env.REACT_APP_API_BASE_URL}/posts`;
 

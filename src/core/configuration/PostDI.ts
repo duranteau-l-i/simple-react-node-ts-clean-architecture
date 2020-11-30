@@ -1,12 +1,12 @@
-import PostsApi from "../adapters/secondary/REST/BlogApiPostsRepository";
-import PostsMemory from "../adapters/secondary/InMemory/InMemoryPostsRepository";
-import PostsLoader from "../useCases/PostsLoader";
-import PostCreater, { ICreatePost } from "../useCases/PostCreater";
+import PostsApi from "../adapters/secondary/posts/REST/BlogApiPostsRepository";
+import PostsMemory from "../adapters/secondary/posts/InMemory/InMemoryPostsRepository";
+import PostsLoader from "../useCases/posts/PostsLoader";
+import PostCreator, { ICreatePost } from "../useCases/posts/PostCreator";
 
-import PostsRepository from "../domain/ports/repositories/PostsRepository";
-import Post from "../domain/entities/Post";
+import PostsRepository from "../domain/posts/ports/repositories/PostsRepository";
+import Post from "../domain/posts/entities/Post";
 
-import PostLoaderResponse from "../useCases/PostLoaderResponse";
+import PostLoaderResponse from "../useCases/posts/PostLoaderResponse";
 
 const postsApi = new PostsApi();
 const postsMemory = new PostsMemory();
@@ -19,7 +19,7 @@ class PostDI {
   }
 
   createPost(data: ICreatePost): Promise<any> {
-    return new PostCreater(this.source).createPost(data);
+    return new PostCreator(this.source).createPost(data);
   }
 }
 

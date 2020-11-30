@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import PostsRepository from "../../../domain/ports/repositories/PostsRepository";
-import PostDTO from "../../../DTO/PostDTO";
-import { ICreatePost } from "../../../useCases/PostCreater";
+import PostsRepository from "../../../../domain/posts/ports/repositories/PostsRepository";
+import PostDTO from "../../../../DTO/PostDTO";
+import { ICreatePost } from "../../../../useCases/posts/PostCreator";
 
 const URL = `${process.env.REACT_APP_API_BASE_URL}/posts`;
 

@@ -1,9 +1,9 @@
-import Post from "../domain/entities/Post";
+import Post from "../../domain/posts/entities/Post";
 
 export default class PostBuilder {
-  protected _id: number = 1;
-  protected _title: string = "";
-  protected _author: string = "";
+  protected _id = 1;
+  protected _title = "";
+  protected _author = "";
 
   withId(value: number): PostBuilder {
     this._id = value;

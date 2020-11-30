@@ -1,8 +1,8 @@
 import InMemoryPostsRepository from "./InMemory/InMemoryPostsRepository";
-import PostCreater from "../../core/useCases/PostCreater";
-import Post from "../../core/domain/entities/Post";
+import PostCreator from "../../../core/useCases/posts/PostCreator";
+import Post from "../../../core/domain/posts/entities/Post";
 import StubPostBuilder from "./stubs/StubPostBuilder";
-import PostDTO from "../../core/DTO/PostDTO";
+import PostDTO from "../../../core/DTO/PostDTO";
 
 const data = [
   new PostDTO(1, "test 1", "typicode"),
@@ -12,7 +12,7 @@ const data = [
 
 describe("posts", () => {
   const inMemory = new InMemoryPostsRepository();
-  const postCreater = new PostCreater(inMemory);
+  const postCreater = new PostCreator(inMemory);
 
   beforeEach(done => {
     inMemory.setPosts(data);

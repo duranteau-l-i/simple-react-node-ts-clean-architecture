@@ -1,8 +1,8 @@
-import PostsRepository from "../domain/ports/repositories/PostsRepository";
-import Post from "../domain/entities/Post";
+import PostsRepository from "../../domain/posts/ports/repositories/PostsRepository";
+import Post from "../../domain/posts/entities/Post";
 import PostLoaderResponse from "./PostLoaderResponse";
 import PostBuilder from "./PostBuilder";
-import PostDTO from "../DTO/PostDTO";
+import PostDTO from "../../DTO/PostDTO";
 
 class PostsLoader {
   constructor(private postRepository: PostsRepository) {}

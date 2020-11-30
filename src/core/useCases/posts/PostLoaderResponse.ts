@@ -1,4 +1,4 @@
-import Post from "../domain/entities/Post";
+import Post from "../../domain/posts/entities/Post";
 
 export default class PostLoaderResponse<T extends Post | Post[]> {
   constructor(

@@ -1,7 +1,7 @@
-import Post from "../../../core/domain/entities/Post";
-import PostRepository from "../../../core/domain/ports/repositories/PostsRepository";
-import ApiResponse from "../../../core/useCases/PostLoaderResponse";
-import PostDTO from "../../../core/DTO/PostDTO";
+import Post from "../../../../core/domain/posts/entities/Post";
+import PostRepository from "../../../../core/domain/posts/ports/repositories/PostsRepository";
+import ApiResponse from "../../../../core/useCases/posts/PostLoaderResponse";
+import PostDTO from "../../../../core/DTO/PostDTO";
 
 class InMemoryPostsRepository implements PostRepository {
   private posts: PostDTO[] = [];

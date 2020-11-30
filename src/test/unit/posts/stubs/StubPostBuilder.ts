@@ -1,4 +1,4 @@
-import PostBuilder from "../../../core/useCases/PostBuilder";
+import PostBuilder from "../../../../core/useCases/posts/PostBuilder";
 
 export default class StubPostBuilder extends PostBuilder {
   protected _id: number = 1;

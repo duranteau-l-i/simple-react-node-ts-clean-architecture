@@ -1,9 +1,9 @@
 import InMemoryPostsRepository from "./InMemory/InMemoryPostsRepository";
-import PostLoader from "../../core/useCases/PostLoader";
-import Post from "../../core/domain/entities/Post";
+import PostLoader from "../../../core/useCases/posts/PostLoader";
+import Post from "../../../core/domain/posts/entities/Post";
 import StubPostBuilder from "./stubs/StubPostBuilder";
-import PostDTO from "../../core/DTO/PostDTO";
-import PostLoaderResponse from "../../core/useCases/PostLoaderResponse";
+import PostDTO from "../../../core/DTO/PostDTO";
+import PostLoaderResponse from "../../../core/useCases/posts/PostLoaderResponse";
 
 const data = [
   new PostDTO(1, "test 1", "typicode"),

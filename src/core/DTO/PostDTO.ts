@@ -1,5 +1,3 @@
-// import Post from "../entities/Post";
-
 export default class PostDTO {
   constructor(
     private _id: number,

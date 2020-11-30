@@ -36,15 +36,7 @@ class BlogApiPostsRepository implements PostsRepository {
   }
 
   createPost(data: ICreatePost): Promise<void> {
-    return new Promise((resolve, reject) => {
-      axios.post(`${URL}`, data);
-      // .then(res => {
-      //   resolve("ok");
-      // })
-      // .catch(e => {
-      //   reject(e);
-      // });
-    });
+    return axios.post(`${URL}`, data);
   }
 }
 

@@ -15,7 +15,6 @@ const Posts = () => {
       .getPosts()
       .then(res => {
         // console.log(res.data);
-        setPosts([]);
         setPosts(res.data);
       })
       .catch(e => {

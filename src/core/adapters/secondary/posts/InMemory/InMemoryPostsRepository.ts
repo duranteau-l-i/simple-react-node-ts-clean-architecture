@@ -1,5 +1,6 @@
 import Post from "../../../../domain/posts/entities/Post";
 import PostRepository from "../../../../domain/posts/ports/repositories/PostsRepository";
+import PostDTO from "../../../../DTO/PostDTO";
 import mockData from "./data.json";
 
 class InMemoryPostsRepository implements PostRepository {
@@ -7,15 +8,12 @@ class InMemoryPostsRepository implements PostRepository {
 
   fetchPosts(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const dataSuccess = {
-        status: "success",
-        message: "",
-        data: this.posts
-      };
-      resolve(dataSuccess);
+      const list = this.posts.map((post: any) => {
+        return new PostDTO(post.id, post.title, post.author);
+      });
+      resolve(list);
 
-      // const dataFailed = { status: "failed", message: "e.message", data: [] };
-      // reject(dataFailed);
+      // reject([]);
     });
   }
 
@@ -23,15 +21,13 @@ class InMemoryPostsRepository implements PostRepository {
     return new Promise((resolve, reject) => {
       const post = this.posts.find(post => post.id === id);
 
-      const dataSuccess = {
-        status: "success",
-        message: "",
-        data: post
-      };
-      resolve(dataSuccess);
+      if (post) {
+        resolve(new PostDTO(post.id, post.title, post.author));
+      } else {
+        reject({});
+      }
 
-      // const dataFailed = { status: "failed", message: "e.message", data: {} };
-      // reject(dataFailed);
+      // reject({});
     });
   }
 
@@ -45,15 +41,9 @@ class InMemoryPostsRepository implements PostRepository {
 
       this.posts.push(post);
 
-      const dataSuccess = {
-        status: "success",
-        message: "",
-        data: post
-      };
-      resolve(dataSuccess);
+      resolve();
 
-      const dataFailed = { status: "failed", message: "e.message", data: {} };
-      reject(dataFailed);
+      // reject();
     });
   }
 }

@@ -10,15 +10,19 @@ class CommentCreator {
   constructor(private repository: CommentRepository) {}
 
   async createComment(data: ICreateComment) {
-    if (data.body === "") {
-      throw new Error("Body should not be empty");
-    }
+    try {
+      if (data.body === "") {
+        return Promise.reject("Body should not be empty");
+      }
 
-    if (data.body.length > 200) {
-      throw new Error("Body should not contains more than 200");
-    }
+      if (data.body.length > 200) {
+        return Promise.reject("Body should not contains more than 200");
+      }
 
-    this.repository.create(data);
+      this.repository.create(data);
+    } catch (e) {
+      Promise.reject(e);
+    }
   }
 }
 

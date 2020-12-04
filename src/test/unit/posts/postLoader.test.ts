@@ -1,4 +1,4 @@
-import InMemoryPostsRepository from "./InMemory/InMemoryPostsRepository";
+import InMemoryPostsRepository from "../../../core/adapters/secondary/posts/InMemory/InMemoryPostsRepository";
 import PostLoader from "../../../core/useCases/posts/PostLoader";
 import Post from "../../../core/domain/posts/entities/Post";
 import StubPostBuilder from "./stubs/StubPostBuilder";
@@ -12,11 +12,10 @@ const data = [
 ];
 
 describe("posts", () => {
-  const inMemory = new InMemoryPostsRepository();
-  const postLoader = new PostLoader(inMemory);
-
+  let postLoader: PostLoader;
   beforeEach(done => {
-    inMemory.setPosts(data);
+    const inMemory = new InMemoryPostsRepository(data);
+    postLoader = new PostLoader(inMemory);
     done();
   });
 

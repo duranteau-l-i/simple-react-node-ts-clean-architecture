@@ -1,4 +1,4 @@
-import InMemoryPostsRepository from "./InMemory/InMemoryPostsRepository";
+import InMemoryPostsRepository from "../../../core/adapters/secondary/posts/InMemory/InMemoryPostsRepository";
 import PostsLoader from "../../../core/useCases/posts/PostsLoader";
 import StubPostBuilder from "./stubs/StubPostBuilder";
 import Post from "../../../core/domain/posts/entities/Post";
@@ -12,12 +12,10 @@ const data = [
 ];
 
 describe("posts", () => {
-  const inMemory = new InMemoryPostsRepository();
-  const postsLoader = new PostsLoader(inMemory);
-
   it("should get an empty array", async () => {
     // arrange
-    inMemory.setPosts([]);
+    const inMemory = new InMemoryPostsRepository([]);
+    const postsLoader = new PostsLoader(inMemory);
     // act
     const postsExpected = await postsLoader.loadPosts();
     // assert
@@ -26,7 +24,8 @@ describe("posts", () => {
 
   it("should get a list of posts", async () => {
     // arrange
-    inMemory.setPosts(data);
+    const inMemory = new InMemoryPostsRepository(data);
+    const postsLoader = new PostsLoader(inMemory);
     // act
     const postsExpected = await postsLoader.loadPosts();
     // assert

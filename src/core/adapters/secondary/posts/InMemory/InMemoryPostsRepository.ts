@@ -4,9 +4,9 @@ import PostDTO from "../../../../DTO/PostDTO";
 import mockData from "./data.json";
 
 class InMemoryPostsRepository implements PostRepository {
-  private posts = mockData.posts;
+  constructor(private posts: any[]) {}
 
-  fetchPosts(): Promise<any> {
+  fetchPosts(): Promise<PostDTO[]> {
     return new Promise((resolve, reject) => {
       const list = this.posts.map((post: any) => {
         return new PostDTO(post.id, post.title, post.author);
@@ -17,7 +17,7 @@ class InMemoryPostsRepository implements PostRepository {
     });
   }
 
-  fetchPostById(id: number): Promise<any> {
+  fetchPostById(id: number): Promise<PostDTO> {
     return new Promise((resolve, reject) => {
       const post = this.posts.find(post => post.id === id);
 
@@ -31,7 +31,7 @@ class InMemoryPostsRepository implements PostRepository {
     });
   }
 
-  createPost(data: Post): Promise<any> {
+  createPost(data: Post): Promise<void> {
     return new Promise((resolve, reject) => {
       const post = {
         id: this.posts.length + 1,

@@ -1,4 +1,4 @@
-import InMemoryPostsRepository from "./InMemory/InMemoryPostsRepository";
+import InMemoryPostsRepository from "../../../core/adapters/secondary/posts/InMemory/InMemoryPostsRepository";
 import PostCreator from "../../../core/useCases/posts/PostCreator";
 import Post from "../../../core/domain/posts/entities/Post";
 import StubPostBuilder from "./stubs/StubPostBuilder";
@@ -11,37 +11,25 @@ const data = [
 ];
 
 describe("posts", () => {
-  const inMemory = new InMemoryPostsRepository();
-  const postCreater = new PostCreator(inMemory);
-
+  let postCreator: PostCreator;
   beforeEach(done => {
-    inMemory.setPosts(data);
+    const inMemory = new InMemoryPostsRepository(data);
+    postCreator = new PostCreator(inMemory);
     done();
   });
 
-  // it("should not create a new post", async () => {
-  //   try {
-  //     const post = new StubPostBuilder().withId(4).withTitle("").build();
-
-  //     const postExpected = await postCreater.createPost(post);
-
-  //     if (!postExpected) {
-  //       throw new Error(postExpected);
-  //     }
-  //   } catch (e) {
-  //     expect(e).toEqual({
-  //       status: "failed",
-  //       message: "a value is missing",
-  //       data: {}
-  //     });
-  //   }
-  // });
-
   it("should not create a post", async () => {
+    expect(data.length).toEqual(3);
+
     const post = new StubPostBuilder().withId(4).withTitle("test 4").build();
 
-    postCreater.createPost(post);
+    postCreator.createPost(post);
 
-    expect(data).toContainEqual(new PostDTO(4, "test 4", "typicode"));
+    expect(data.length).toEqual(4);
+    // expect(data).toEqual(
+    //   expect.arrayContaining([
+    //     expect.objectContaining(new PostDTO(4, "test 4", "typicode"))
+    //   ])
+    // );
   });
 });

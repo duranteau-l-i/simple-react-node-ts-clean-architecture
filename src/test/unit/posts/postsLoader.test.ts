@@ -17,9 +17,11 @@ describe("posts", () => {
     const inMemory = new InMemoryPostsRepository([]);
     const postsLoader = new PostsLoader(inMemory);
     // act
-    const postsExpected = await postsLoader.loadPosts();
+    expect.assertions(1);
     // assert
-    expect(postsExpected).toEqual(new PostLoaderResponse("success", "", []));
+    expect(postsLoader.loadPosts()).resolves.toEqual(
+      new PostLoaderResponse("success", "", [])
+    );
   });
 
   it("should get a list of posts", async () => {
@@ -27,9 +29,9 @@ describe("posts", () => {
     const inMemory = new InMemoryPostsRepository(data);
     const postsLoader = new PostsLoader(inMemory);
     // act
-    const postsExpected = await postsLoader.loadPosts();
+    expect.assertions(1);
     // assert
-    expect(postsExpected).toEqual(
+    expect(postsLoader.loadPosts()).resolves.toEqual(
       new PostLoaderResponse("success", "", [
         new Post(1, "test 1", "typicode"),
         new Post(2, "test 2", "typicode"),

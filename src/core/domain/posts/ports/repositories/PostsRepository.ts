@@ -7,7 +7,7 @@ interface PostsRepository {
 
   fetchPostById(id: number): Promise<PostDTO>;
 
-  createPost(data: object): Promise<void>;
+  createPost(data: object): Promise<PostDTO>;
 }
 
 export default PostsRepository;

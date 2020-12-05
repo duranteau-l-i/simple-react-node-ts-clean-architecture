@@ -3,6 +3,7 @@ import PostCreator from "../../../core/useCases/posts/PostCreator";
 import Post from "../../../core/domain/posts/entities/Post";
 import StubPostBuilder from "./stubs/StubPostBuilder";
 import PostDTO from "../../../core/DTO/PostDTO";
+import PostLoaderResponse from "../../../core/useCases/posts/PostLoaderResponse";
 
 const data = [
   new PostDTO(1, "test 1", "typicode"),
@@ -18,18 +19,15 @@ describe("posts", () => {
     done();
   });
 
-  it("should not create a post", async () => {
+  it("should create a new post and add it to the data", async () => {
     expect(data.length).toEqual(3);
 
-    const post = new StubPostBuilder().withId(4).withTitle("test 4").build();
-
-    postCreator.createPost(post);
+    expect(
+      postCreator.createPost({ title: "test 4", author: "typicode" })
+    ).resolves.toEqual(
+      new PostLoaderResponse("success", "", new Post(4, "test 4", "typicode"))
+    );
 
     expect(data.length).toEqual(4);
-    // expect(data).toEqual(
-    //   expect.arrayContaining([
-    //     expect.objectContaining(new PostDTO(4, "test 4", "typicode"))
-    //   ])
-    // );
   });
 });

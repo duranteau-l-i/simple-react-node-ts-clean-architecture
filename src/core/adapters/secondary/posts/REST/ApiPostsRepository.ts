@@ -5,7 +5,7 @@ import { ICreatePost } from "../../../../useCases/posts/PostCreator";
 
 const URL = `${process.env.REACT_APP_API_BASE_URL}/posts`;
 
-class BlogApiPostsRepository implements PostsRepository {
+export class ApiPostsRepository implements PostsRepository {
   fetchPosts(): Promise<PostDTO[]> {
     return new Promise((resolve, reject) => {
       axios
@@ -35,9 +35,19 @@ class BlogApiPostsRepository implements PostsRepository {
     });
   }
 
-  createPost(data: ICreatePost): Promise<void> {
-    return axios.post(`${URL}`, data);
+  createPost(data: ICreatePost): Promise<PostDTO> {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`${URL}`, data)
+        .then(res => {
+          resolve(new PostDTO(res.data.id, res.data.title, res.data.author));
+        })
+        .catch(e => {
+          reject({});
+        });
+    });
   }
 }
 
-export default BlogApiPostsRepository;
+const apiPostsRepository = new ApiPostsRepository();
+export default apiPostsRepository;

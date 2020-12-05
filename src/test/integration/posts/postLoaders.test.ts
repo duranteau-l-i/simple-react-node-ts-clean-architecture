@@ -1,5 +1,5 @@
 import PostDTO from "../../../core/DTO/PostDTO";
-import BlogApiPostsRepository from "../../../core/adapters/secondary/posts/REST/BlogApiPostsRepository";
+import apiPostsRepository from "../../../core/adapters/secondary/posts/REST/ApiPostsRepository";
 
 describe("posts", () => {
   it("should be called", async () => {
@@ -10,19 +10,18 @@ describe("posts", () => {
       new PostDTO(3, "test 3", "typicode")
     ];
 
-    const blogApiPostsRepository = new BlogApiPostsRepository();
-    const spy = jest.spyOn(blogApiPostsRepository, "fetchPosts");
+    const spy = jest.spyOn(apiPostsRepository, "fetchPosts");
     spy.mockImplementation(() => Promise.resolve(data));
 
     // act
-    blogApiPostsRepository.fetchPosts();
-    blogApiPostsRepository.fetchPosts();
+    apiPostsRepository.fetchPosts();
+    apiPostsRepository.fetchPosts();
 
     // assert
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledTimes(2);
 
-    blogApiPostsRepository.fetchPosts().then(res => {
+    apiPostsRepository.fetchPosts().then(res => {
       expect(res).toEqual([
         new PostDTO(1, "test 1", "typicode"),
         new PostDTO(2, "test 2", "typicode"),

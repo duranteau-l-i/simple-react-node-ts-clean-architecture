@@ -1,4 +1,4 @@
-import PostsApi from "../adapters/secondary/posts/REST/BlogApiPostsRepository";
+import apiPostsRepository from "../adapters/secondary/posts/REST/ApiPostsRepository";
 import PostsMemory from "../adapters/secondary/posts/InMemory/InMemoryPostsRepository";
 import mockData from "../adapters/secondary/posts/InMemory/data.json";
 import PostsLoader from "../useCases/posts/PostsLoader";
@@ -9,7 +9,6 @@ import Post from "../domain/posts/entities/Post";
 
 import PostLoaderResponse from "../useCases/posts/PostLoaderResponse";
 
-const postsApi = new PostsApi();
 const postsMemory = new PostsMemory(mockData.posts);
 
 class PostDI {
@@ -19,10 +18,10 @@ class PostDI {
     return new PostsLoader(this.source).loadPosts();
   }
 
-  createPost(data: ICreatePost): Promise<any> {
+  createPost(data: ICreatePost): Promise<PostLoaderResponse<Post>> {
     return new PostCreator(this.source).createPost(data);
   }
 }
 
-const postsDI = new PostDI(postsApi);
+const postsDI = new PostDI(apiPostsRepository);
 export default postsDI;

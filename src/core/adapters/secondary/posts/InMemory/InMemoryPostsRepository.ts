@@ -26,12 +26,10 @@ class InMemoryPostsRepository implements PostRepository {
       } else {
         reject({});
       }
-
-      // reject({});
     });
   }
 
-  createPost(data: Post): Promise<void> {
+  createPost(data: Post): Promise<PostDTO> {
     return new Promise((resolve, reject) => {
       const post = {
         id: this.posts.length + 1,
@@ -41,7 +39,7 @@ class InMemoryPostsRepository implements PostRepository {
 
       this.posts.push(post);
 
-      resolve();
+      resolve(new PostDTO(post.id, post.title, post.author));
 
       // reject();
     });

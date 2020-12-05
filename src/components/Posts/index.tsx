@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
-import postsDI from "../../core/configuration/PostDI";
 import Post from "../../core/domain/posts/entities/Post";
+import postsDI from "../../core/configuration/PostDI";
+
+// use with redux
+import {
+  getPosts,
+  getPost
+} from "../../core/adapters/secondary/posts/redux/posts/actions";
+import { RootState } from "../../core/adapters/secondary/posts/redux/store";
+import { useSelector, useDispatch } from "react-redux";
 
 import AddPost from "./AddPost";
 import Comments from "../Comments";
@@ -8,6 +16,7 @@ import Comments from "../Comments";
 import "./post.css";
 
 const Posts = () => {
+  // use API
   const [posts, setPosts] = useState<Post[] | null>(null);
 
   const getData = useCallback(() => {
@@ -31,6 +40,19 @@ const Posts = () => {
   const handlePosts = () => {
     getData();
   };
+
+  // use REDUX
+  // const dispatch = useDispatch();
+  // const posts: Post[] = useSelector((state: RootState) => state.posts.data);
+
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  //   // dispatch(getPost(1));
+  // }, []);
+
+  // const handlePosts = () => {
+  //   console.log("handlePosts");
+  // };
 
   return (
     <div className="posts">

@@ -23,7 +23,7 @@ class PostsLoader {
           resolve(new PostLoaderResponse("success", "", posts));
         })
         .catch(e => {
-          reject(new PostLoaderResponse("failed", "pas bon", e));
+          reject(new PostLoaderResponse("failed", "get posts failed", e));
         });
     });
   }

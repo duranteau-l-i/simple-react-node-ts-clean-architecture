@@ -2,7 +2,9 @@ import PostsLoader from "../../../core/useCases/posts/PostsLoader";
 import Post from "../../../core/domain/posts/entities/Post";
 import PostDTO from "../../../core/DTO/PostDTO";
 import PostLoaderResponse from "../../../core/useCases/posts/PostLoaderResponse";
-import BlogApiPostsRepository from "../../../core/adapters/secondary/posts/REST/BlogApiPostsRepository";
+import apiPostsRepository, {
+  ApiPostsRepository
+} from "../../../core/adapters/secondary/posts/REST/ApiPostsRepository";
 
 describe("posts", () => {
   it("should be called", async () => {
@@ -13,10 +15,10 @@ describe("posts", () => {
       new PostDTO(3, "test 3", "typicode")
     ];
 
-    let REST: BlogApiPostsRepository = {
+    let REST: ApiPostsRepository = {
       fetchPosts: () => Promise.resolve(data),
       fetchPostById: () => Promise.resolve(data[0]),
-      createPost: () => Promise.resolve()
+      createPost: () => Promise.resolve(data[1])
     };
     const postsLoader = new PostsLoader(REST);
 
@@ -35,8 +37,7 @@ describe("posts", () => {
 
   it("should be called", async () => {
     // arrange
-    const blogApiPostsRepository = new BlogApiPostsRepository();
-    const postsLoader = new PostsLoader(blogApiPostsRepository);
+    const postsLoader = new PostsLoader(apiPostsRepository);
 
     // act
     const postsExpected = await postsLoader.loadPosts();

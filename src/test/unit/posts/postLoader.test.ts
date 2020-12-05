@@ -20,21 +20,17 @@ describe("posts", () => {
   });
 
   it("should get an empty object", async () => {
-    try {
-      const postExpected = await postLoader.loadPostById(10);
+    expect.assertions(1);
 
-      if (!postExpected) {
-        throw new Error(postExpected);
-      }
-    } catch (e) {
-      expect(e).toEqual(new PostLoaderResponse("failed", "pas bon", e.data));
-    }
+    expect(postLoader.loadPostById(10)).rejects.toEqual(
+      new PostLoaderResponse("failed", "get post failed", {})
+    );
   });
 
   it("should get a post", async () => {
-    const postExpected = await postLoader.loadPostById(1);
+    expect.assertions(1);
 
-    expect(postExpected).toEqual(
+    expect(postLoader.loadPostById(1)).resolves.toEqual(
       new PostLoaderResponse("success", "", new Post(1, "test 1", "typicode"))
     );
   });

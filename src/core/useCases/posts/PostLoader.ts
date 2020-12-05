@@ -5,6 +5,7 @@ import PostBuilder from "./PostBuilder";
 
 class PostLoader {
   constructor(private postRepository: PostsRepository) {}
+
   loadPostById(id: number): Promise<PostLoaderResponse<Post>> {
     return new Promise((resolve, reject) => {
       return this.postRepository
@@ -23,7 +24,7 @@ class PostLoader {
           );
         })
         .catch(e => {
-          reject(new PostLoaderResponse("failed", "pas bon", e));
+          reject(new PostLoaderResponse("failed", "get post failed", e));
         });
     });
   }

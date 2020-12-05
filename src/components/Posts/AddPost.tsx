@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import postsDI from "../../core/configuration/PostDI";
 
+// use with redux
+import { createPost } from "../../core/adapters/secondary/posts/redux/posts/actions";
+import { useDispatch } from "react-redux";
+
 interface IProps {
   handlePosts: () => void;
 }
@@ -12,6 +16,7 @@ const AddPost = ({ handlePosts }: IProps) => {
     setValue(e.target.value);
   };
 
+  // use API
   const handleClick = () => {
     postsDI
       .createPost({ title: value, author: "typicode" })
@@ -23,6 +28,13 @@ const AddPost = ({ handlePosts }: IProps) => {
         console.log(e);
       });
   };
+
+  // use REDUX
+  // const dispatch = useDispatch();
+  // const handleClick = () => {
+  //   dispatch(createPost({ title: value, author: "typicode" }));
+  //   setValue("");
+  // };
 
   return (
     <div>

@@ -9,19 +9,19 @@ export interface ICreateComment {
 class CommentCreator {
   constructor(private repository: CommentRepository) {}
 
-  async createComment(data: ICreateComment) {
+  async createComment(data: ICreateComment): Promise<void> {
     try {
       if (data.body === "") {
-        return Promise.reject("Body should not be empty");
+        throw new Error("Body should not be empty");
       }
 
       if (data.body.length > 200) {
-        return Promise.reject("Body should not contains more than 200");
+        throw new Error("Body should not contains more than 200");
       }
 
       this.repository.create(data);
     } catch (e) {
-      Promise.reject(e);
+      return Promise.reject(e.message);
     }
   }
 }

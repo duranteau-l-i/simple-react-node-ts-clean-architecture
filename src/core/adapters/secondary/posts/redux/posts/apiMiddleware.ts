@@ -1,11 +1,14 @@
 import { Middleware } from "redux";
+
+import { RootState } from "../store";
+
 import {
   postsMiddlewareActionTypes,
   FETCH_POSTS,
   FETCH_POST,
   CREATE_POST
 } from "./types";
-import { RootState } from "../store";
+
 import Post from "../../../../../domain/posts/entities/Post";
 import apiPostsRepository from "../../REST/ApiPostsRepository";
 import PostsLoader from "../../../../../useCases/posts/PostsLoader";
@@ -55,7 +58,7 @@ export const postsApiMiddleware: Middleware<
     case CREATE_POST:
       next(action);
 
-      return new PostCreator(apiPostsRepository)
+      new PostCreator(apiPostsRepository)
         .createPost(action.data)
         .then(res => {
           store.dispatch(addPost(res.data, res.message, res.status));

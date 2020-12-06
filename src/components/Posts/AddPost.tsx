@@ -17,24 +17,24 @@ const AddPost = ({ handlePosts }: IProps) => {
   };
 
   // use API
-  const handleClick = () => {
-    postsDI
-      .createPost({ title: value, author: "typicode" })
-      .then(res => {
-        setValue("");
-        handlePosts();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  // const handleClick = () => {
+  //   postsDI
+  //     .createPost({ title: value, author: "typicode" })
+  //     .then(res => {
+  //       setValue("");
+  //       handlePosts();
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // };
 
   // use REDUX
-  // const dispatch = useDispatch();
-  // const handleClick = () => {
-  //   dispatch(createPost({ title: value, author: "typicode" }));
-  //   setValue("");
-  // };
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(createPost({ title: value, author: "typicode" }));
+    setValue("");
+  };
 
   return (
     <div>

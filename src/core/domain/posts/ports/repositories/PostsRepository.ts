@@ -1,5 +1,3 @@
-import Post from "../../entities/Post";
-import PostLoaderResponse from "../../../../useCases/posts/PostLoaderResponse";
 import PostDTO from "../../../../DTO/PostDTO";
 
 interface PostsRepository {

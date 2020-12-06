@@ -11,27 +11,40 @@ export interface ICreatePost {
 class PostsCreator {
   constructor(private postRepository: PostsRepository) {}
 
-  createPost(data: ICreatePost): Promise<PostLoaderResponse<Post>> {
-    return new Promise((resolve, reject) => {
-      this.postRepository
-        .createPost(data)
-        .then(response => {
-          resolve(
-            new PostLoaderResponse(
-              "success",
-              "",
-              new PostBuilder()
-                .withId(response.id)
-                .withTitle(response.title)
-                .withAuthor(response.author)
-                .build()
-            )
-          );
-        })
-        .catch(e => {
-          reject(new PostLoaderResponse("failed", "create post failed", e));
-        });
-    });
+  async createPost(data: ICreatePost): Promise<PostLoaderResponse<Post>> {
+    try {
+      if (data.title === "") {
+        throw new Error("Body should not be empty");
+      }
+
+      if (data.title.length > 50) {
+        throw new Error("Body should not contains more than 200");
+      }
+
+      const response = await this.postRepository.createPost(data);
+
+      if (!response) {
+        Promise.reject(
+          new PostLoaderResponse("failed", "create post failed", {})
+        );
+      }
+
+      return Promise.resolve(
+        new PostLoaderResponse(
+          "success",
+          "",
+          new PostBuilder()
+            .withId(response.id)
+            .withTitle(response.title)
+            .withAuthor(response.author)
+            .build()
+        )
+      );
+    } catch (e) {
+      return Promise.reject(
+        new PostLoaderResponse("failed", "create post failed", {})
+      );
+    }
   }
 }
 

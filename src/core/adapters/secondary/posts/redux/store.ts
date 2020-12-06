@@ -1,6 +1,8 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import { postsReducer } from "./posts/reducers";
 import { postsApiMiddleware } from "./posts/apiMiddleware";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
   posts: postsReducer
@@ -8,8 +10,8 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const middlewareEnhancer = applyMiddleware(postsApiMiddleware);
+const middlewareEnhancer = applyMiddleware(thunk, postsApiMiddleware);
 
-const store = createStore(rootReducer, middlewareEnhancer);
+const store = createStore(rootReducer, composeWithDevTools(middlewareEnhancer));
 
 export default store;

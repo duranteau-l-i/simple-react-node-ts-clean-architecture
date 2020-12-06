@@ -13,8 +13,9 @@ const data = [
 
 describe("posts", () => {
   let postCreator: PostCreator;
+  let inMemory: InMemoryPostsRepository;
   beforeEach(done => {
-    const inMemory = new InMemoryPostsRepository(data);
+    inMemory = new InMemoryPostsRepository(data);
     postCreator = new PostCreator(inMemory);
     done();
   });
@@ -30,4 +31,57 @@ describe("posts", () => {
 
     expect(data.length).toEqual(4);
   });
+
+  it("should create comment when title has minimum size", () => {
+    const title = createTitle(1);
+    const postWithTitleMinimumSize = { title: title, author: "typicode" };
+
+    expect(postCreator.createPost(postWithTitleMinimumSize)).resolves.toEqual(
+      new PostLoaderResponse("success", "", new Post(5, "a", "typicode"))
+    );
+  });
+
+  it("should create comment when title has maximum size", () => {
+    const title = createTitle(50);
+    const postWithTitleMinimumSize = { title: title, author: "typicode" };
+
+    expect(postCreator.createPost(postWithTitleMinimumSize)).resolves.toEqual(
+      new PostLoaderResponse(
+        "success",
+        "",
+        new Post(
+          6,
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "typicode"
+        )
+      )
+    );
+  });
+
+  it("should not create comment when title is empty", () => {
+    const postWithTitleMinimumSize = { title: "", author: "typicode" };
+
+    expect(postCreator.createPost(postWithTitleMinimumSize)).rejects.toEqual(
+      new PostLoaderResponse("failed", "create post failed", {})
+    );
+  });
+
+  it("should not create comment when title is more than 50", () => {
+    const title = createTitle(51);
+    const postWithTitleMinimumSize = { title: title, author: "typicode" };
+
+    expect(postCreator.createPost(postWithTitleMinimumSize)).rejects.toEqual(
+      new PostLoaderResponse("failed", "create post failed", {})
+    );
+  });
 });
+
+const createTitle = (number: number) => {
+  let title = "";
+
+  for (let i = 0; i < number; i++) {
+    title += "a";
+  }
+
+  return title;
+};

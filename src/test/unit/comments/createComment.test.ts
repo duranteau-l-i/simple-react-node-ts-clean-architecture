@@ -44,23 +44,23 @@ describe("Comments", () => {
   it("should not create comment when body is empty", () => {
     const commentWithoutBody = { body: "", postId: 1, authorId: 1 };
 
-    commentCreator.createComment(commentWithoutBody).catch(e => {
-      expect(inMemoryCommentRepository.getComments()).not.toEqual([
-        new CommentEntity(1, "", 1, 1)
-      ]);
-    });
+    // commentCreator.createComment(commentWithoutBody).catch(e => {
+    //   expect(inMemoryCommentRepository.getComments()).not.toEqual([
+    //     new CommentEntity(1, "", 1, 1)
+    //   ]);
+    // });
+
+    expect(commentCreator.createComment(commentWithoutBody)).rejects.toEqual(
+      "Body should not be empty"
+    );
   });
 
-  it("should not create comment when body is empty and reject with message", () => {
+  it("should not create comment when body is empty and reject with message", async () => {
     const commentWithoutBody = { body: "", postId: 1, authorId: 1 };
 
     commentCreator.createComment(commentWithoutBody).catch(e => {
       expect(e).toEqual("Body should not be empty");
     });
-
-    // await expect(
-    //   commentCreator.createComment(commentWithoutBody)
-    // ).rejects.toThrowError("Body should not be empty");
   });
 
   it("should not create comment when body has more than 200 and reject with message", async () => {
@@ -71,10 +71,6 @@ describe("Comments", () => {
     commentCreator.createComment(commentWithoutBody).catch(e => {
       expect(e).toEqual("Body should not contains more than 200");
     });
-
-    // await expect(
-    //   commentCreator.createComment(commentWithoutBody)
-    // ).rejects.toThrowError("Body should not contains more than 200");
   });
 });
 

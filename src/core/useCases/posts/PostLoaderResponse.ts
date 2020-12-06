@@ -1,6 +1,6 @@
 import Post from "../../domain/posts/entities/Post";
 
-export default class PostLoaderResponse<T extends Post | {} | Post[] | []> {
+export default class PostLoaderResponse<T extends Post | Post[] | any> {
   constructor(
     private _status: string,
     private _message: string,

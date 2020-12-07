@@ -5,17 +5,17 @@ export default class PostBuilder {
   protected _title = "";
   protected _author = "";
 
-  withId(value: number): PostBuilder {
+  id(value: number): PostBuilder {
     this._id = value;
     return this;
   }
 
-  withTitle(value: string): PostBuilder {
+  title(value: string): PostBuilder {
     this._title = value;
     return this;
   }
 
-  withAuthor(value: string): PostBuilder {
+  author(value: string): PostBuilder {
     this._author = value;
     return this;
   }

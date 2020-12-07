@@ -4,6 +4,7 @@ import { RootState } from "../store";
 
 import Post from "../../../../../domain/posts/entities/Post";
 import apiPostsRepository from "../../REST/ApiPostsRepository";
+import PostDTO from "./PostDTO";
 
 import PostsLoader from "../../../../../useCases/posts/PostsLoader";
 import PostLoader from "../../../../../useCases/posts/PostLoader";
@@ -21,10 +22,14 @@ export const getPosts = (): ThunkAction<
   new PostsLoader(apiPostsRepository)
     .loadPosts()
     .then(res => {
+      const data = res.data.map(
+        post => new PostDTO(post.id, post.title, post.author)
+      );
+
       dispatch(setPosts(res.data, res.message, res.status));
     })
     .catch(e => {
-      dispatch(setPosts(e.data, e.message, e.status));
+      dispatch(setPosts(null, e.message, e.status));
     });
 };
 
@@ -56,7 +61,7 @@ export const getPost = (
       }
     })
     .catch(e => {
-      dispatch(setPost(e.data, e.message, e.status));
+      dispatch(setPost(null, e.message, e.status));
     });
 };
 
@@ -69,6 +74,6 @@ export const createPost = (
       dispatch(addPost(res.data, res.message, res.status));
     })
     .catch(e => {
-      dispatch(addPost(e.data, e.message, e.status));
+      dispatch(addPost(null, e.message, e.status));
     });
 };

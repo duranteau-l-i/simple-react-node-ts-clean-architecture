@@ -10,6 +10,7 @@ import {
   getPosts,
   getPost
 } from "../../core/adapters/secondary/posts/redux/posts/actionsThunks";
+
 import { RootState } from "../../core/adapters/secondary/posts/redux/store";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -50,9 +51,9 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(getPosts());
-    setTimeout(() => {
-      dispatch(getPost(1));
-    }, 2000);
+    // setTimeout(() => {
+    //   dispatch(getPost(1));
+    // }, 2000);
   }, []);
 
   const handlePosts = () => {

@@ -34,7 +34,7 @@ export const createPost = (data: ICreatePost): postsMiddlewareActionTypes => {
 
 // reducer
 export const setPosts = (
-  posts: Post[],
+  posts: Post[] | null,
   message: string,
   status: string
 ): postsActionTypes => {
@@ -47,7 +47,7 @@ export const setPosts = (
 };
 
 export const setPost = (
-  post: Post,
+  post: Post | null,
   message: string,
   status: string
 ): postsActionTypes => {
@@ -60,7 +60,7 @@ export const setPost = (
 };
 
 export const addPost = (
-  post: Post,
+  post: Post | null,
   message: string,
   status: string
 ): postsActionTypes => {

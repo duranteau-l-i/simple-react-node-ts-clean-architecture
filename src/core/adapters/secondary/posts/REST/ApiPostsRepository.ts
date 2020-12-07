@@ -1,49 +1,67 @@
 import axios, { AxiosResponse } from "axios";
 import PostsRepository from "../../../../domain/posts/ports/repositories/PostsRepository";
-import PostDTO from "../../../../DTO/PostDTO";
 import { ICreatePost } from "../../../../useCases/posts/PostCreator";
+import Post from "../../../../domain/posts/entities/Post";
+import PostBuilder from "../../../../useCases/posts/PostBuilder";
 
 const URL = `${process.env.REACT_APP_API_BASE_URL}/posts`;
 
 export class ApiPostsRepository implements PostsRepository {
-  fetchPosts(): Promise<PostDTO[]> {
+  fetchPosts(): Promise<Post[]> {
     return new Promise((resolve, reject) => {
       axios
         .get(URL)
         .then(res => {
-          const list = res.data.map((post: any) => {
-            return new PostDTO(post.id, post.title, post.author);
+          const list = res.data.map((post: Post) => {
+            return new PostBuilder()
+              .id(post.id)
+              .title(post.title)
+              .author(post.author)
+              .build();
           });
+
           resolve(list);
         })
         .catch(e => {
-          reject([]);
+          reject(e);
         });
     });
   }
 
-  fetchPostById(id: number): Promise<PostDTO> {
+  fetchPostById(id: number): Promise<Post> {
     return new Promise((resolve, reject) => {
       axios
         .get(`${URL}/${id}`)
         .then(res => {
-          resolve(new PostDTO(res.data.id, res.data.title, res.data.author));
+          resolve(
+            new PostBuilder()
+              .id(res.data.id)
+              .title(res.data.title)
+              .author(res.data.author)
+              .build()
+          );
         })
         .catch(e => {
-          reject({});
+          reject(e);
         });
     });
   }
 
-  createPost(data: ICreatePost): Promise<PostDTO> {
+  createPost(data: ICreatePost): Promise<Post> {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${URL}`, data)
+        .post(URL, data)
         .then(res => {
-          resolve(new PostDTO(res.data.id, res.data.title, res.data.author));
+          resolve(
+            new PostBuilder()
+              .id(res.data.id)
+              .title(res.data.title)
+              .author(res.data.author)
+              .build()
+          );
         })
         .catch(e => {
-          reject({});
+          reject(e);
         });
     });
   }

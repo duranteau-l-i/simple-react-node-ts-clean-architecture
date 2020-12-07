@@ -38,21 +38,21 @@ export const ADD_POST = "ADD_POST";
 
 interface getPostsAction {
   type: typeof GET_POSTS;
-  payload: Post[];
+  payload: Post[] | null;
   message: string;
   status: string;
 }
 
 interface getPostAction {
   type: typeof GET_POST;
-  payload: Post;
+  payload: Post | null;
   message: string;
   status: string;
 }
 
 interface addPostAction {
   type: typeof ADD_POST;
-  payload: Post;
+  payload: Post | null;
   message: string;
   status: string;
 }

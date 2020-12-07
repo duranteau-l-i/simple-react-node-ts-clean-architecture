@@ -1,11 +1,11 @@
-import PostDTO from "../../../../DTO/PostDTO";
+import Post from "../../../../domain/posts/entities/Post";
 
 interface PostsRepository {
-  fetchPosts(): Promise<PostDTO[]>;
+  fetchPosts(): Promise<Post[]>;
 
-  fetchPostById(id: number): Promise<PostDTO>;
+  fetchPostById(id: number): Promise<Post>;
 
-  createPost(data: object): Promise<PostDTO>;
+  createPost(data: object): Promise<Post>;
 }
 
 export default PostsRepository;

@@ -1,8 +1,6 @@
 import PostsRepository from "../../domain/posts/ports/repositories/PostsRepository";
 import Post from "../../domain/posts/entities/Post";
 import PostLoaderResponse from "./PostLoaderResponse";
-import PostBuilder from "./PostBuilder";
-import PostDTO from "../../DTO/PostDTO";
 
 class PostsLoader {
   constructor(private postRepository: PostsRepository) {}
@@ -11,19 +9,11 @@ class PostsLoader {
     return new Promise((resolve, reject) => {
       this.postRepository
         .fetchPosts()
-        .then(response => {
-          const posts = response.map((post: PostDTO) => {
-            return new PostBuilder()
-              .withId(post.id)
-              .withTitle(post.title)
-              .withAuthor(post.author)
-              .build();
-          });
-
+        .then(posts => {
           resolve(new PostLoaderResponse("success", "", posts));
         })
         .catch(e => {
-          reject(new PostLoaderResponse("failed", "get posts failed", e));
+          reject(new PostLoaderResponse("failed", e.message, null));
         });
     });
   }

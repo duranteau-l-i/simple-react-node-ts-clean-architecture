@@ -2,13 +2,12 @@ import InMemoryPostsRepository from "../../../core/adapters/secondary/posts/InMe
 import PostCreator from "../../../core/useCases/posts/PostCreator";
 import Post from "../../../core/domain/posts/entities/Post";
 import StubPostBuilder from "./stubs/StubPostBuilder";
-import PostDTO from "../../../core/DTO/PostDTO";
 import PostLoaderResponse from "../../../core/useCases/posts/PostLoaderResponse";
 
 const data = [
-  new PostDTO(1, "test 1", "typicode"),
-  new PostDTO(2, "test 2", "typicode"),
-  new PostDTO(3, "test 3", "typicode")
+  new StubPostBuilder().id(1).title("test 1").author("typicode").build(),
+  new StubPostBuilder().id(2).title("test 2").author("typicode").build(),
+  new StubPostBuilder().id(3).title("test 3").author("typicode").build()
 ];
 
 describe("posts", () => {
@@ -32,7 +31,7 @@ describe("posts", () => {
     expect(data.length).toEqual(4);
   });
 
-  it("should create comment when title has minimum size", () => {
+  it("should create title when title has minimum size", () => {
     const title = createTitle(1);
     const postWithTitleMinimumSize = { title: title, author: "typicode" };
 
@@ -41,7 +40,7 @@ describe("posts", () => {
     );
   });
 
-  it("should create comment when title has maximum size", () => {
+  it("should create title when title has maximum size", () => {
     const title = createTitle(50);
     const postWithTitleMinimumSize = { title: title, author: "typicode" };
 
@@ -58,20 +57,24 @@ describe("posts", () => {
     );
   });
 
-  it("should not create comment when title is empty", () => {
+  it("should not create title when title is empty", () => {
     const postWithTitleMinimumSize = { title: "", author: "typicode" };
 
     expect(postCreator.createPost(postWithTitleMinimumSize)).rejects.toEqual(
-      new PostLoaderResponse("failed", "create post failed", {})
+      new PostLoaderResponse("failed", "Title should not be empty", null)
     );
   });
 
-  it("should not create comment when title is more than 50", () => {
+  it("should not create title when title is more than 50", () => {
     const title = createTitle(51);
     const postWithTitleMinimumSize = { title: title, author: "typicode" };
 
     expect(postCreator.createPost(postWithTitleMinimumSize)).rejects.toEqual(
-      new PostLoaderResponse("failed", "create post failed", {})
+      new PostLoaderResponse(
+        "failed",
+        "Title should not contains more than 50",
+        null
+      )
     );
   });
 });

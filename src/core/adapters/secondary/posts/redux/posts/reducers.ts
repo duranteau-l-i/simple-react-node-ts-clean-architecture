@@ -17,7 +17,7 @@ export function postsReducer(state = initialState, action: postsActionTypes) {
     case GET_POSTS:
       return {
         ...state,
-        data: action.payload,
+        data: action.payload ? action.payload : state.data,
         message: action.message,
         status: action.status
       };
@@ -25,7 +25,7 @@ export function postsReducer(state = initialState, action: postsActionTypes) {
     case GET_POST:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        data: action.payload ? [...state.data, action.payload] : state.data,
         message: action.message,
         status: action.status
       };
@@ -33,7 +33,7 @@ export function postsReducer(state = initialState, action: postsActionTypes) {
     case ADD_POST:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        data: action.payload ? [...state.data, action.payload] : state.data,
         message: action.message,
         status: action.status
       };

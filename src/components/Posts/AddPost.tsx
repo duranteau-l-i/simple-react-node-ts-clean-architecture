@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import postsDI from "../../core/configuration/PostDI";
 
 // use with redux
-import { createPost } from "../../core/adapters/secondary/posts/redux/posts/actions";
+import // createPost
+"../../core/adapters/secondary/posts/redux/posts/actions";
+import { createPost } from "../../core/adapters/secondary/posts/redux/posts/actionsThunks";
 import { useDispatch } from "react-redux";
 
 interface IProps {

@@ -2,13 +2,12 @@ import InMemoryPostsRepository from "../../../core/adapters/secondary/posts/InMe
 import PostLoader from "../../../core/useCases/posts/PostLoader";
 import Post from "../../../core/domain/posts/entities/Post";
 import StubPostBuilder from "./stubs/StubPostBuilder";
-import PostDTO from "../../../core/DTO/PostDTO";
 import PostLoaderResponse from "../../../core/useCases/posts/PostLoaderResponse";
 
 const data = [
-  new PostDTO(1, "test 1", "typicode"),
-  new PostDTO(2, "test 2", "typicode"),
-  new PostDTO(3, "test 3", "typicode")
+  new StubPostBuilder().id(1).title("test 1").author("typicode").build(),
+  new StubPostBuilder().id(2).title("test 2").author("typicode").build(),
+  new StubPostBuilder().id(3).title("test 3").author("typicode").build()
 ];
 
 describe("posts", () => {
@@ -23,7 +22,7 @@ describe("posts", () => {
     expect.assertions(1);
 
     expect(postLoader.loadPostById(10)).rejects.toEqual(
-      new PostLoaderResponse("failed", "get post failed", {})
+      new PostLoaderResponse("failed", "get post failed", null)
     );
   });
 

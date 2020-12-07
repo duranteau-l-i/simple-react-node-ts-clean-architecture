@@ -1,7 +1,6 @@
 import PostsRepository from "../../domain/posts/ports/repositories/PostsRepository";
 import Post from "../../domain/posts/entities/Post";
 import PostLoaderResponse from "./PostLoaderResponse";
-import PostBuilder from "./PostBuilder";
 
 export interface ICreatePost {
   title: string;
@@ -14,36 +13,22 @@ class PostsCreator {
   async createPost(data: ICreatePost): Promise<PostLoaderResponse<Post>> {
     try {
       if (data.title === "") {
-        throw new Error("Body should not be empty");
+        throw new Error("Title should not be empty");
       }
 
       if (data.title.length > 50) {
-        throw new Error("Body should not contains more than 200");
+        throw new Error("Title should not contains more than 50");
       }
 
-      const response = await this.postRepository.createPost(data);
+      const post = await this.postRepository.createPost(data);
 
-      if (!response) {
-        Promise.reject(
-          new PostLoaderResponse("failed", "create post failed", {})
-        );
+      if (!post) {
+        throw new Error("create post failed");
       }
 
-      return Promise.resolve(
-        new PostLoaderResponse(
-          "success",
-          "",
-          new PostBuilder()
-            .withId(response.id)
-            .withTitle(response.title)
-            .withAuthor(response.author)
-            .build()
-        )
-      );
+      return Promise.resolve(new PostLoaderResponse("success", "", post));
     } catch (e) {
-      return Promise.reject(
-        new PostLoaderResponse("failed", "create post failed", {})
-      );
+      return Promise.reject(new PostLoaderResponse("failed", e.message, null));
     }
   }
 }

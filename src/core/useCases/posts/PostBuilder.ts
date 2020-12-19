@@ -2,8 +2,8 @@ import Post from "../../domain/posts/entities/Post";
 
 export default class PostBuilder {
   protected _id = 1;
-  protected _title = "";
-  protected _author = "";
+  protected _title = "text 1";
+  protected _author = "typicode";
 
   id(value: number): PostBuilder {
     this._id = value;

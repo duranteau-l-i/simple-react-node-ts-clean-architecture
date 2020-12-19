@@ -68,9 +68,9 @@ const Posts = () => {
           {posts.map((post: Post) => (
             <div className="post" key={post.id}>
               <p key={post.id}>Title: {post.title}</p>
-              <ul>
+              {/* <ul>
                 <Comments postId={post.id} />
-              </ul>
+              </ul> */}
             </div>
           ))}
         </div>

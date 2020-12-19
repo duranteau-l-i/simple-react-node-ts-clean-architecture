@@ -7,9 +7,9 @@ import // createPost
 import { createPost } from "../../core/adapters/secondary/posts/redux/posts/actionsThunks";
 import { useDispatch } from "react-redux";
 
-interface IProps {
+type IProps = {
   handlePosts: () => void;
-}
+};
 
 const AddPost = ({ handlePosts }: IProps) => {
   const [value, setValue] = useState("");

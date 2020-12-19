@@ -1,16 +1,16 @@
 import InMemoryPostsRepository from "../../../core/adapters/secondary/posts/InMemory/InMemoryPostsRepository";
 import PostsLoader from "../../../core/useCases/posts/PostsLoader";
-import StubPostBuilder from "./stubs/StubPostBuilder";
+import StubPostBuilder from "../../stubs/StubPostBuilder";
 import Post from "../../../core/domain/posts/entities/Post";
 import PostLoaderResponse from "../../../core/useCases/posts/PostLoaderResponse";
 
 const data = [
-  new StubPostBuilder().id(1).title("test 1").author("typicode").build(),
-  new StubPostBuilder().id(2).title("test 2").author("typicode").build(),
-  new StubPostBuilder().id(3).title("test 3").author("typicode").build()
+  new StubPostBuilder().id(1).build(),
+  new StubPostBuilder().id(2).title("test 2").build(),
+  new StubPostBuilder().id(3).title("test 3").build()
 ];
 
-describe("posts", () => {
+describe("Get posts", () => {
   it("should get an empty array", async () => {
     // arrange
     const inMemory = new InMemoryPostsRepository([]);

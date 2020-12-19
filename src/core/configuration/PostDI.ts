@@ -6,10 +6,19 @@ import PostCreator, { ICreatePost } from "../useCases/posts/PostCreator";
 
 import PostsRepository from "../domain/posts/ports/repositories/PostsRepository";
 import Post from "../domain/posts/entities/Post";
+import PostBuilder from "../useCases/posts/PostBuilder";
 
 import PostLoaderResponse from "../useCases/posts/PostLoaderResponse";
 
-const postsMemory = new PostsMemory(mockData.posts);
+const posts = mockData.posts.map(post => {
+  return new PostBuilder()
+    .id(post.id)
+    .title(post.title)
+    .author(post.author)
+    .build();
+});
+
+const postsMemory = new PostsMemory(posts);
 
 class PostDI {
   constructor(private source: PostsRepository) {}

@@ -1,5 +1,5 @@
 import Post from "../../../../domain/posts/entities/Post";
-import PostRepository from "../../../../domain/posts/ports/repositories/PostsRepository";
+import PostRepository from "../../../../domain/posts/repositories/PostsRepository";
 import PostBuilder from "../../../../useCases/posts/PostBuilder";
 
 class InMemoryPostsRepository implements PostRepository {

@@ -4,7 +4,7 @@ import mockData from "../adapters/secondary/posts/InMemory/data.json";
 import PostsLoader from "../useCases/posts/PostsLoader";
 import PostCreator, { ICreatePost } from "../useCases/posts/PostCreator";
 
-import PostsRepository from "../domain/posts/ports/repositories/PostsRepository";
+import PostsRepository from "../domain/posts/repositories/PostsRepository";
 import Post from "../domain/posts/entities/Post";
 import PostBuilder from "../useCases/posts/PostBuilder";
 

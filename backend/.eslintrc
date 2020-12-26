@@ -18,7 +18,7 @@
   ],
   "rules": {
     // "no-console": 1,
-    "prettier/prettier": 2,
+    "prettier/prettier": ["error", { "trailingComma": false }],
     // "trailingComma": 0,
     "@typescript-eslint/no-var-requires": 0
   }

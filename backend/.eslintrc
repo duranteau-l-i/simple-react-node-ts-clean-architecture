@@ -19,7 +19,7 @@
   "rules": {
     // "no-console": 1,
     "prettier/prettier": 2,
-    "trailingComma": 0,
+    // "trailingComma": 0,
     "@typescript-eslint/no-var-requires": 0
   }
 }

@@ -1,5 +1,5 @@
-import Post from "../../../../domain/posts/entities/Post";
-import { ICreatePost } from "../../../../useCases/posts/PostCreator";
+import Post from "../entities/Post";
+import { ICreatePost } from "../../../useCases/posts/PostCreator";
 
 interface PostsRepository {
   fetchPosts(): Promise<Post[]>;

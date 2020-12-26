@@ -1,4 +1,4 @@
-import PostsRepository from "../../domain/posts/ports/repositories/PostsRepository";
+import PostsRepository from "../../domain/posts/repositories/PostsRepository";
 import Post from "../../domain/posts/entities/Post";
 import PostLoaderResponse from "./PostLoaderResponse";
 

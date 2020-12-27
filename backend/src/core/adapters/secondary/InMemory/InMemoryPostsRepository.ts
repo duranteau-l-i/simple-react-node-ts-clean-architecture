@@ -1,7 +1,9 @@
 import Post from "../../../domain/posts/entities/Post";
 import PostsRepository, {
-  IdataUpdate
+  IdataUpdate,
+  IdataCreate
 } from "../../../domain/posts/repositories/PostsRepository";
+import PostBuilder from "../../../useCases/posts/Post.builder";
 
 class InMemoryPostsRepository implements PostsRepository {
   constructor(private posts: Post[]) {}
@@ -18,6 +20,19 @@ class InMemoryPostsRepository implements PostsRepository {
       } else {
         reject("Post not found");
       }
+    });
+  }
+
+  createPost(data: IdataCreate): Promise<Post | Error> {
+    return new Promise((resolve, reject) => {
+      const post = new PostBuilder()
+        .id(this.posts.length + 1)
+        .title(data.title)
+        .build();
+
+      this.posts.push(post);
+
+      resolve(post);
     });
   }
 

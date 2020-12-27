@@ -43,4 +43,31 @@ describe("Update post", () => {
       new Post(3, "test 3", "typicode")
     ]);
   });
+
+  it("should not update title when title is empty", () => {
+    const postWithTitleEmpty = { title: "" };
+
+    expect(postUpdater.updatePostById(1, postWithTitleEmpty)).rejects.toEqual(
+      Error("Title should not be empty")
+    );
+  });
+
+  it("should not update title when title is more than 50", () => {
+    const title = newTitle(51);
+    const postWithTitleTooLong = { title: title };
+
+    expect(postUpdater.updatePostById(1, postWithTitleTooLong)).rejects.toEqual(
+      Error("Title should not contains more than 50")
+    );
+  });
 });
+
+const newTitle = (number: number) => {
+  let title = "";
+
+  for (let i = 0; i < number; i++) {
+    title += "a";
+  }
+
+  return title;
+};

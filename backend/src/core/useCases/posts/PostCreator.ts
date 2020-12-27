@@ -1,12 +1,12 @@
 import PostsRepository, {
-  IdataUpdate
+  IdataCreate
 } from "../../domain/posts/repositories/PostsRepository";
 import Post from "../../domain/posts/entities/Post";
 
-class PostUpdater {
+class PostCreator {
   constructor(private postsRepository: PostsRepository) {}
 
-  async updatePostById(id: number, data: IdataUpdate): Promise<Post | string> {
+  async createPost(data: IdataCreate): Promise<Post | Error> {
     if (data.title === "") {
       throw new Error("Title should not be empty");
     }
@@ -15,8 +15,12 @@ class PostUpdater {
       throw new Error("Title should not contains more than 50");
     }
 
-    return this.postsRepository.updatePostById(id, data);
+    if (!data.author) {
+      throw new Error("The post must have an author");
+    }
+
+    return this.postsRepository.createPost(data);
   }
 }
 
-export default PostUpdater;
+export default PostCreator;

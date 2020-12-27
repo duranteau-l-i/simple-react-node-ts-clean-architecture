@@ -31,7 +31,7 @@ describe("Create post", () => {
     expect(data.length).toEqual(4);
   });
 
-  it("should create title when title has minimum size", () => {
+  it("should create post when title has minimum size", () => {
     const title = createTitle(1);
     const postWithTitleMinimumSize = { title: title, author: "typicode" };
 
@@ -42,9 +42,9 @@ describe("Create post", () => {
 
   it("should create title when title has maximum size", () => {
     const title = createTitle(50);
-    const postWithTitleMinimumSize = { title: title, author: "typicode" };
+    const postWithTitleMaximumSize = { title: title, author: "typicode" };
 
-    expect(postCreator.createPost(postWithTitleMinimumSize)).resolves.toEqual(
+    expect(postCreator.createPost(postWithTitleMaximumSize)).resolves.toEqual(
       new PostLoaderResponse(
         "success",
         "",
@@ -57,19 +57,19 @@ describe("Create post", () => {
     );
   });
 
-  it("should not create title when title is empty", () => {
-    const postWithTitleMinimumSize = { title: "", author: "typicode" };
+  it("should not create post when title is empty", () => {
+    const postWithTitleEmpty = { title: "", author: "typicode" };
 
-    expect(postCreator.createPost(postWithTitleMinimumSize)).rejects.toEqual(
+    expect(postCreator.createPost(postWithTitleEmpty)).rejects.toEqual(
       new PostLoaderResponse("failed", "Title should not be empty", null)
     );
   });
 
-  it("should not create title when title is more than 50", () => {
+  it("should not create post when title is more than 50", () => {
     const title = createTitle(51);
-    const postWithTitleMinimumSize = { title: title, author: "typicode" };
+    const postWithTitleTooLong = { title: title, author: "typicode" };
 
-    expect(postCreator.createPost(postWithTitleMinimumSize)).rejects.toEqual(
+    expect(postCreator.createPost(postWithTitleTooLong)).rejects.toEqual(
       new PostLoaderResponse(
         "failed",
         "Title should not contains more than 50",

@@ -6,7 +6,7 @@ import Post from "../../domain/posts/entities/Post";
 class PostUpdater {
   constructor(private postsRepository: PostsRepository) {}
 
-  async updatePostById(id: number, data: IdataUpdate): Promise<Post | string> {
+  async updatePostById(id: string, data: IdataUpdate): Promise<Post | Error> {
     if (data.title === "") {
       throw new Error("Title should not be empty");
     }

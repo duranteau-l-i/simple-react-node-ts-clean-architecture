@@ -12,13 +12,13 @@ class InMemoryPostsRepository implements PostsRepository {
     return this.posts;
   }
 
-  fetchPostById(id: number): Promise<Post | string> {
+  fetchPostById(id: string): Promise<Post | Error> {
     return new Promise((resolve, reject) => {
       const post = this.posts.find((p) => p.id === id);
       if (post) {
         resolve(post);
       } else {
-        reject("Post not found");
+        throw new Error("Post not found");
       }
     });
   }
@@ -26,7 +26,7 @@ class InMemoryPostsRepository implements PostsRepository {
   createPost(data: IdataCreate): Promise<Post | Error> {
     return new Promise((resolve, reject) => {
       const post = new PostBuilder()
-        .id(this.posts.length + 1)
+        .id(String(this.posts.length + 1))
         .title(data.title)
         .build();
 
@@ -36,7 +36,7 @@ class InMemoryPostsRepository implements PostsRepository {
     });
   }
 
-  updatePostById(id: number, data: IdataUpdate): Promise<Post | string> {
+  updatePostById(id: string, data: IdataUpdate): Promise<Post | Error> {
     return new Promise((resolve, reject) => {
       const postIndex = this.posts.findIndex((p) => p.id === id);
       if (postIndex !== -1) {
@@ -45,12 +45,12 @@ class InMemoryPostsRepository implements PostsRepository {
 
         resolve(this.posts[postIndex]);
       } else {
-        reject("Invalid id");
+        throw new Error("Invalid id");
       }
     });
   }
 
-  deletePostById(id: number): Promise<string> {
+  deletePostById(id: string): Promise<string | Error> {
     return new Promise((resolve, reject) => {
       const postIndex = this.posts.findIndex((p) => p.id === id);
 
@@ -59,7 +59,7 @@ class InMemoryPostsRepository implements PostsRepository {
 
         resolve("Post deleted");
       } else {
-        reject("Invalid id");
+        throw new Error("Invalid id");
       }
     });
   }

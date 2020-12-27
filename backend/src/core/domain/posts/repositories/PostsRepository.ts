@@ -12,13 +12,13 @@ export interface IdataUpdate {
 interface PostsRepository {
   fetchPosts(): Promise<Post[]>;
 
-  fetchPostById(id: number): Promise<Post | string>;
+  fetchPostById(id: string): Promise<Post | Error>;
 
   createPost(data: IdataCreate): Promise<Post | Error>;
 
-  updatePostById(id: number, data: IdataUpdate): Promise<Post | string>;
+  updatePostById(id: string, data: IdataUpdate): Promise<Post | Error>;
 
-  deletePostById(id: number): Promise<string>;
+  deletePostById(id: string): Promise<string | Error>;
 }
 
 export default PostsRepository;

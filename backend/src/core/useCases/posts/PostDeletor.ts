@@ -4,7 +4,7 @@ import Post from "../../domain/posts/entities/Post";
 class PostDeletor {
   constructor(private postsRepository: PostsRepository) {}
 
-  deletePostById(id: number): Promise<string> {
+  deletePostById(id: string): Promise<string | Error> {
     return this.postsRepository.deletePostById(id);
   }
 }

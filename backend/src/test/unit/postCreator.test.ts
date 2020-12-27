@@ -10,9 +10,9 @@ describe("Update post", () => {
 
   beforeEach(() => {
     const data = [
-      new StubPostBuilder().id(1).build(),
-      new StubPostBuilder().id(2).title("test 2").build(),
-      new StubPostBuilder().id(3).title("test 3").build()
+      new StubPostBuilder().id("1").build(),
+      new StubPostBuilder().id("2").title("test 2").build(),
+      new StubPostBuilder().id("3").title("test 3").build()
     ];
 
     const inMemoryPostsRepository = new InMemoryPostsRepository(data);
@@ -23,13 +23,13 @@ describe("Update post", () => {
   it("should create a post", () => {
     expect(
       postCreator.createPost({ title: "test 4", author: "typicode" })
-    ).resolves.toEqual(new Post(4, "test 4", "typicode"));
+    ).resolves.toEqual(new Post("4", "test 4", "typicode"));
 
     expect(postsLoader.loadPosts()).resolves.toEqual([
-      new Post(1, "test 1", "typicode"),
-      new Post(2, "test 2", "typicode"),
-      new Post(3, "test 3", "typicode"),
-      new Post(4, "test 4", "typicode")
+      new Post("1", "test 1", "typicode"),
+      new Post("2", "test 2", "typicode"),
+      new Post("3", "test 3", "typicode"),
+      new Post("4", "test 4", "typicode")
     ]);
   });
 
@@ -38,14 +38,14 @@ describe("Update post", () => {
     const postWithTitleMinimumSize = { title: title, author: "typicode" };
 
     expect(postCreator.createPost(postWithTitleMinimumSize)).resolves.toEqual(
-      new Post(4, "a", "typicode")
+      new Post("4", "a", "typicode")
     );
 
     expect(postsLoader.loadPosts()).resolves.toEqual([
-      new Post(1, "test 1", "typicode"),
-      new Post(2, "test 2", "typicode"),
-      new Post(3, "test 3", "typicode"),
-      new Post(4, "a", "typicode")
+      new Post("1", "test 1", "typicode"),
+      new Post("2", "test 2", "typicode"),
+      new Post("3", "test 3", "typicode"),
+      new Post("4", "a", "typicode")
     ]);
   });
 

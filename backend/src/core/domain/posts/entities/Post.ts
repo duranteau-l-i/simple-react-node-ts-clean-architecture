@@ -1,11 +1,11 @@
 class Post {
   constructor(
-    private _id: number,
+    private _id: string,
     private _title: string,
     private _author: string
   ) {}
 
-  get id(): number {
+  get id(): string {
     return this._id;
   }
 

@@ -4,7 +4,7 @@ import Post from "../../domain/posts/entities/Post";
 class PostLoader {
   constructor(private postsRepository: PostsRepository) {}
 
-  loadPostById(id: number): Promise<Post | string> {
+  loadPostById(id: string): Promise<Post | Error> {
     return this.postsRepository.fetchPostById(id);
   }
 }
